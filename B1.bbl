@@ -1,0 +1,217 @@
+\begin{thebibliography}{}
+{}
+\bibitem{beveridge+pikhurko:08}
+A.~Beveridge and O.~Pikhurko.
+\newblock The connectivity of extremal {Ramsey} graphs.
+\newblock {\em Australas.\ J.\ Comb.}, 41:57--62, 2008.
+{}
+\bibitem{bohman+frieze+mubayi+pikhurko:10}
+T.~Bohman, A.~Frieze, D.~Mubayi, and O.~Pikhurko.
+\newblock Hypergraphs with independent neighborhoods.
+\newblock {\em Combinatorica}, 30:277--293, 2010.
+{}
+\bibitem{bollobas:74}
+B.~{Bollob\'as}.
+\newblock Three-graphs without two triples whose symmetric difference is
+  contained in a third.
+\newblock {\em Discrete Math.}, 8:21--24, 1974.
+{}
+\bibitem{BCLSV:08}
+C.~Borgs, J.~Chayes, L.~Lov{\'a}sz, V.~T. S{\'o}s, and K.~Vesztergombi.
+\newblock Convergent sequences of dense graphs {I}: {Subgraph} frequencies,
+  metric properties and testing.
+\newblock {\em Adv.\ Math.}, 219:1801--1851, 2008.
+{}
+\bibitem{chung+graham:eg}
+F.~Chung and R.~L. Graham.
+\newblock {\em {Erd\H{o}s} on Graphs: His Legacy of Unsolved Problems}.
+\newblock A.K.Peters, Wellesley, 1998.
+{}
+\bibitem{conlon:09}
+D.~Conlon.
+\newblock A new upper bound for diagonal {R}amsey numbers.
+\newblock {\em Adv.\ Math.}, 170:941--960, 2009.
+{}
+\bibitem{erdos:47}
+P.~Erd{\H o}s.
+\newblock Some remarks on the theory of graphs.
+\newblock {\em Bull.\ Amer.\ Math.\ Soc.}, 53:292--294, 1947.
+{}
+\bibitem{erdos:55}
+P.~Erd{\"o}s.
+\newblock Some theorems on graphs.
+\newblock {\em Riveon Lematematika}, 9:13--17, 1955.
+{}
+\bibitem{erdos+sos:80}
+P.~Erd{\H{o}}s and V.~T. S{\'o}s.
+\newblock Problems and results on {R}amsey-{T}ur\'an type theorems (preliminary
+  report).
+\newblock {\em Congres.\ Numer.}, 26:17--23, 1980.
+{}
+\bibitem{erdos+szekeres:35}
+P.~Erd{\H os} and G.~Szekeres.
+\newblock A combinatorial problem in geometry.
+\newblock {\em Compositio Math}, 2:463--470, 1935.
+{}
+\bibitem{frankl+furedi:89}
+P.~Frankl and Z.~F{\"u}redi.
+\newblock Extremal problems whose solutions are the blowups of the small
+  {W}itt-designs.
+\newblock {\em J.\ Combin.\ Theory\ {\rm (A)}}, 52:129--147, 1989.
+{}
+\bibitem{frankl+rodl:84}
+P.~Frankl and V.~R{\"o}dl.
+\newblock Hypergraphs do not jump.
+\newblock {\em Combinatorica}, 4:149--159, 1984.
+{}
+\bibitem{furedi+mubayi+pikhurko:08}
+Z.~F{\"u}redi, D.~Mubayi, and O.~Pikhurko.
+\newblock Quadruple systems with independent neighborhoods.
+\newblock {\em J.\ Combin.\ Theory\ {\rm (A)}}, 115:1552--1560, 2008.
+{}
+\bibitem{furedi+pikhurko+simonovits:03:ejc}
+Z.~F{\"u}redi, O.~Pikhurko, and M.~Simonovits.
+\newblock The {Tur{\'a}n} density of the hypergraph {$\{abc,ade,bde,cde\}$}.
+\newblock {\em Electronic J.\ Combin.}, 10:7pp., 2003.
+{}
+\bibitem{furedi+pikhurko+simonovits:05}
+Z.~F{\"u}redi, O.~Pikhurko, and M.~Simonovits.
+\newblock Triple systems with independent neighbourhoods.
+\newblock {\em Combin.\ Probab.\ Computing}, 14:795--813, 2005.
+{}
+\bibitem{furedi+pikhurko+simonovits:06}
+Z.~F{\"u}redi, O.~Pikhurko, and M.~Simonovits.
+\newblock 4-{Books} of three pages.
+\newblock {\em J.\ Combin.\ Theory\ {\rm (A)}}, 113:882--891, 2006.
+{}
+\bibitem{loh+pikhurko+sudakov:10}
+P.-S. Loh, O.~Pikhurko, and B.~Sudakov.
+\newblock Maximizing the number of {$q$}-colorings.
+\newblock {\em Proc.\ London Math.\ Soc.}, 101:655--696, 2010.
+{}
+\bibitem{lovasz:09}
+L.~Lov{\'a}sz.
+\newblock Very large graphs.
+\newblock {\em Current Developments in Mathematics}, 2008:67--128, 2009.
+{}
+\bibitem{lovasz+simonovits:76}
+L.~Lov{\'a}sz and M.~Simonovits.
+\newblock On the number of complete subgraphs of a graph.
+\newblock In {\em Proceedings of the Fifth British Combinatorial Conference
+  (Univ. Aberdeen, Aberdeen, 1975)}, pages 431--441. Congressus Numerantium,
+  No. XV, Winnipeg, Man., 1976. Utilitas Math.
+{}
+\bibitem{lovasz+simonovits:83}
+L.~Lov{\'a}sz and M.~Simonovits.
+\newblock On the number of complete subgraphs of a graph. {II}.
+\newblock In {\em Studies in pure mathematics}, pages 459--495. Birkh\"auser,
+  Basel, 1983.
+{}
+\bibitem{mubayi:10:am}
+D.~Mubayi.
+\newblock Counting substructures {I}: Color critical graphs.
+\newblock {\em Adv.\ Math.}, 225:2731--2740, 2010.
+{}
+\bibitem{mubayi+pikhurko:08}
+D.~Mubayi and O.~Pikhurko.
+\newblock Constructions of non-principal families in extremal hypergraph
+  theory.
+\newblock {\em Discrete Math.}, 308:4430--4434., 2008.
+{}
+\bibitem{nikiforov:11}
+V.~Nikiforov.
+\newblock The number of cliques in graphs of given order and size.
+\newblock {\em Trans.\ Amer.\ Math.\ Soc.}, 363:1599--1618, 2011.
+{}
+\bibitem{pikhurko:08:c}
+O.~Pikhurko.
+\newblock An exact {Tur\'an} result for the generalized triangle.
+\newblock {\em Combinatorica}, 28:187--208, 2008.
+{}
+\bibitem{pikhurko:10:dm}
+O.~Pikhurko.
+\newblock An analytic approach to stability.
+\newblock {\em Discrete Math.}, 310:2951--2964, 2010.
+{}
+\bibitem{pikhurko:irrational}
+O.~Pikhurko.
+\newblock Irrationality of {Tur\'an} function.
+\newblock In preparation, 2011.
+{}
+\bibitem{pikhurko:11}
+O.~Pikhurko.
+\newblock The minimum size of $3$-graphs without four vertices spanning no or
+  exactly three edges.
+\newblock {\em Europ.\ J.\ Combin.}, 23:1142--1155, 2011.
+{}
+\bibitem{pikhurko:HgrLim}
+O.~Pikhurko.
+\newblock Stability of hypergraph limits.
+\newblock In preparation, 2011.
+{}
+\bibitem{pikhurko+razborov}
+O.~Pikhurko and A.~Razborov.
+\newblock Asymptotic structure of graphs with minimum number of triangles.
+\newblock In preparation, 2011.
+{}
+\bibitem{pikhurko+yilma:supersat}
+O.~Pikhurko and Z.~Yilma.
+\newblock Supersaturation problem for color-critical graphs.
+\newblock Submitted to \emph{Advances in Math}, 2011.
+{}
+\bibitem{razborov:07}
+A.~Razborov.
+\newblock Flag algebras.
+\newblock {\em J.\ Symb.\ Logic}, 72:1239--1282, 2007.
+{}
+\bibitem{razborov:08}
+A.~Razborov.
+\newblock On the minimal density of triangles in graphs.
+\newblock {\em Combin.\ Probab.\ Computing}, 17:603--618, 2008.
+{}
+\bibitem{razborov:10}
+A.~Razborov.
+\newblock On 3-hypergraphs with forbidden 4-vertex configurations.
+\newblock {\em {SIAM} J.\ Discr.\ Math.}, 24:946--963, 2010.
+{}
+\bibitem{razborov:flaass}
+A.~Razborov.
+\newblock On the {Fon-der-Flaass} interpretation of extremal examples for
+  {Tur\'an's} {$(3,4)$}-problem.
+\newblock Manuscript, 2010.
+{}
+\bibitem{reiher:Kr}
+C.~Reiher.
+\newblock Minimizing the number of cliques in graphs of given order and edge
+  density.
+\newblock Manuscript, 2011.
+{}
+\bibitem{sidorenko:87}
+A.~F. Sidorenko.
+\newblock The maximal number of edges in a homogeneous hypergraph containing no
+  prohibited subgraphs.
+\newblock {\em Math Notes}, 41:247--259, 1987.
+\newblock Translated from \emph{Mat.\ Zametki}.
+{}
+\bibitem{spencer:77}
+J.~Spencer.
+\newblock Asymptotic lower bounds for {R}amsey functions.
+\newblock {\em Discrete Math.}, 20:69--76, 1977.
+{}
+\bibitem{thomason:88}
+A.~Thomason.
+\newblock An upper bound for some {R}amsey numbers.
+\newblock {\em J.\ Graph Theory}, 12:509--517, 1988.
+{}
+\bibitem{thomason:02}
+A.~Thomason.
+\newblock The simplest case of {Ramsey's} theorem.
+\newblock In {\em Paul {Erd\H os} and his Mathematics}, volume~11 of {\em
+  Bolyai Soc.\ Math.\ Studies}, pages 667--695. Springer Verlag, 2002.
+{}
+\bibitem{turan:41}
+P.~{Tur\'an}.
+\newblock On an extremal problem in graph theory (in {Hungarian}).
+\newblock {\em Mat.\ Fiz.\ Lapok}, 48:436--452, 1941.
+{}
+\end{thebibliography}

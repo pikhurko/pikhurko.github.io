@@ -1,0 +1,470 @@
+LOG-JOURNAL
+LINUX ON EMACHINES M5305 NOTEBOOK
+
+Here are the changes to the default system/configuration which I found
+useful.
+
+
+11/13
+installed Suse 9.0. Many useful packages were not selected by default:
+tetex, xfig, rxvt, emacs+, lzo (needed by mplayer), findutils-locate
+
+
+11/15
+To be compatible with previous versions created /media/flash 
+added to 
+/etc/fstab:
+/dev/sda1            /media/Flash         vfat       rw,noauto,user        0 0
+
+renamed /media/floppy into /media/Floppy
+
+tried to configure display using sax2. Manually chose freq 30-50 & 50-70 in
+the monitor section and 1280x800 in resolution and it worked! The current
+XF86Config is copied here as XF86Config.031115
+
+istalled mplayer (and required packages from packman). works! (although
+not smooth - is something eating machine's resources up?
+
+/etc/inittab
+# what to do when CTRL-ALT-DEL is pressed; let us set to halt
+ca::ctrlaltdel:/sbin/shutdown -h -t 4 now
+
+11/16
+ installed findutils-locate. This package puts some files in /etc/cron.daily
+which are run (accordingly to /etc/crontab at 4:14am each time). Hopefully,
+updatedb won't start 15min after each startup.
+
+
+11/22
+ tried to use PCMCIA card for CF. In /var/log/messages found a reference to
+hde1. Added as root to /etc/fstab
+/dev/hde1            /media/PcmciaFlash/  vfat       rw,noauto,user        0 0
+
+
+11/24-26
+the linux system crashed: grub took 10 sec to load and then I was getting
+the message "Kernel panic: journal points to accessible data. (Previous when I
+was shutting down the computer it hanged up on shutting down pcmcia so I just
+turned it off. Florin suggested that fs is corrupt and that I better reistall
+all. However, I decided to try rescue. I read Suse82 Adm Guide p.284 and
+at the #-prompt I typed
+ reiserfs --check /dev/hda5
+ It returned "bad superblock" so I had to run with option --update-sb. At
+first it seemed to fix everything but then mouse stopped working and other
+errors, so I guessed Florin was right. (As usually.)
+
+Also he advised to migrate to ext3, which is more reliable in his
+opinion. Reformatted hda5 as ext3 during install then copied everything from
+hda7 (/home) to hda5, unmounted hda7 and ran 
+ mkfs.ext3 -c -c /dev/hda7
+ (The double -c means a complete write-read test for bad blocks.) Then
+replaced reiserfs by ext3 in fstab. Looks OK.
+
+11/28
+ commented out the following line in /etc/crontab
+-*/15 * * * *   root  test -x /usr/lib/cron/run-crons && /usr/lib/cron/run-crons >/dev/null 2>&1
+
+ reason: it looks that run-crons is responsible for running e.g. cron.daily if
+they are more than 24 hours old. In practice this means that in 15 min ater
+start power-on the machine may be busy performing these tasks. Stupid.
+
+>>Later comment: this was bad soltion, see the entry for 25/5
+
+
+In /usr/lib/cron/run-crons I found a (potentially) useful code for checking
+whether the laptop is plugged into power socket:
+
+if test -x /usr/bin/apm ; then
+    case "`/usr/bin/apm 2> /dev/null`" in
+      "AC off-line"*)
+        # Laptop is offline
+        exit 0
+      ;;
+    esac
+fi
+
+Unfortunately, when I run it on EM the output is "No APM support in kernel". 
+Apparently I should read the acpi documentation (not apm).
+
+11/29 installed powertweak and powertweak-extra: it seems that one can pass
+many options to kernel using it. Decided better not to play with it.
+
+yast ->  system -> profile manager;
+enabled scpm
+saved current configuration as default;
+created a new configuration "home" based on default;
+Chose "home" to be the current profile.
+
+Yast -> system -> runlevel
+ disabled cupsd, isdn, nscd, postfix, smbfs,
+ wanted to disable network but yast warmed me that then I have to disable
+cpufreq, xdm, and many other useful processes dependent on network. So I left
+network running.
+
+Having rebooted the laptop it seems work (no cupsd, etc)!
+
+When I typed "scpm switch default" as the root the computer started cups,
+postfix, and restarted network. When I ran "scpm switch home" it stopped
+postfix and cups. Wonderful!
+
+I also discovered how to check whether the computer is on AC or battery:
+read file /proc/acpi/ac_adapter/AC/state 
+ When on battery it consists of the line
+state:                   off-line
+ Otherwise it contains
+state:                   on-line
+ Also, file /proc/acpi/battery/BAT0/state contains various info on the current
+state of the battery (such as remaining capacity, etc). Neat.
+
+Now I try to make the gyration wireless usb mouse work. First, here is the old
+section from XF86Config describing the built-in mouse:
+Section "InputDevice"
+  Driver       "mouse"
+  Identifier   "Mouse[1]"
+  Option       "Buttons" "5"
+  Option       "Device" "/dev/mouse"
+  Option       "Name" "Autodetection"
+  Option       "Protocol" "imps/2"
+  Option       "Vendor" "Sysp"
+  Option       "ZAxisMapping" "4 5"
+EndSection
+
+The new setting which works with the wireless mouse is
+Section "InputDevice"
+  Driver       "mouse"
+  Identifier   "Mouse[1]"
+  Option       "ButtonNumber" "3"
+  Option       "Buttons" "5"
+  Option       "Device" "/dev/mouse"
+  Option       "Name" "Autodetection"
+  Option       "Protocol" "PS/2"
+  Option       "Vendor" "Sysp"
+  Option       "ZAxisMapping" "4 5"
+EndSection
+
+Copied the new config as XF86Config.031129 here. After a few errors and trials
+I have found a solution! One trick is that yast2 keeps /dev/mouse a link
+to the actuall device. For build-in it should be /dev/psaux ; for usb it is
+/dev/input/mice. Hence, in XF86Config we include both sections (with different
+Identifiers of course):
+
+Section "InputDevice"
+  Driver       "mouse"
+  Identifier   "Mouse[1]"
+  Option       "Buttons" "5"
+  Option       "Device" "/dev/psaux"
+  Option       "Name" "Autodetection"
+  Option       "Protocol" "imps/2"
+  Option       "Vendor" "Sysp"
+  Option       "ZAxisMapping" "4 5"
+EndSection
+
+Section "InputDevice"
+  Driver       "mouse"
+  Identifier   "Mouse[2]"
+  Option       "ButtonNumber" "3"
+  Option       "Buttons" "5"
+  Option       "Device" "/dev/input/mice"
+  Option       "Name" "Autodetection"
+  Option       "Protocol" "PS/2"
+  Option       "Vendor" "Sysp"
+  Option       "ZAxisMapping" "4 5"
+EndSection
+
+Finally, in the Section "ServerLayout" one can describe two mice as follows
+(I found this reading man XF86Config)
+
+Section "ServerLayout"
+  Identifier   "Layout[all]"
+  InputDevice  "Keyboard[0]" "CoreKeyboard"
+  InputDevice  "Mouse[1]" "CorePointer"
+  InputDevice  "Mouse[2]" "SendCoreEvents"
+  Option       "Clone" "off"
+  Option       "Xinerama" "off"
+  Screen       "Screen[0]"
+EndSection
+
+This works but there are some unpleasantries: when you run sax2 on the
+modified file, the new XF86Config may be not working. For
+example, when I tried this, sax2 mixed keyboard and mouse settings, like
+ Section "InputDevice"
+   Driver "Keyboard"
+   ...
+   Option "Protocol" "imps/2"
+
+11/30
+ installed Maple 9. It seems that Maple installs its own Java runtime
+environment: possible colisions with Suse Java config :-?
+
+12/6
+ KDE Control Center -> System Administration -> Login Manager -> Convevience
+ Chose "Preselect User"=Previous, Focus Password=yes
+ (Less typing when loggin in :0) )
+
+ installed MPlayer and necessary files (from packman). The gmplayer would not
+start complaining that there is nor read access to /dev/rtc 
+Changed the group of this file to users and added g+r access. gmplayer works.
+
+12/7
+ I have finally found a way to rotate the files from the digital camera.
+First I installed jhead (file jhead-1.5.0.tar.gz here) which, if envoked
+with option -verbose output all JPEG header content, including the
+orientation. Here is my script (clumsy but seems to work):
+
+echo "Rotating files which need rotation (lossless)"
+for i in *.jpg
+ do
+ ORIENT=`jhead -v $i | grep "Orientation" | sed "s/^ *Orientation = //"`
+ echo "$ORIENT"
+ if [ "$ORIENT" == "6" ]
+ then
+  echo "We have to rotate $i"
+#  use the following line if wishing to preserve EXIF information
+#  jhead -cmd "cp $i $i.JpG; jpegtran -rotate 90 -trim $i.JpG > $i; rm $i.JpG"  $i
+  cp $i $i.JpG; jpegtran -rotate 90 -trim $i.JpG > $i; rm $i.JpG
+ else
+  if [ "$ORIENT" == "8" ]
+  then
+   echo "We have to rotate $i"
+#  use the following line if wishing to preserve EXIF information
+#  jhead -cmd "cp $i $i.JpG; jpegtran -rotate 270 -trim $i.JpG > $i; rm $i.JpG"  $i
+ cp $i $i.JpG; jpegtran -rotate 270 -trim $i.JpG > $i; rm $i.JpG
+   # else
+   # echo "No rotation"
+  fi
+ fi
+done
+
+One hint: if the pixel dimentions of a jpeg file are not multiple of 8, then
+the lossless rotation is not possible; the option -trim eliminates the
+onconverted strip of pixels at margins.
+
+Another hint:
+# If you want to preserve EXIF information
+jhead -cmd 'jpegtran -rotate 90 -outfile &o &i' my-pic.jpg
+
+
+Also, the author of jhead says that mogrify -quality 80% decreases the image
+size by 1/2 without losing quality. Unfortunately, for my settings (Large size
+(4M) and normal compression) this seems to get only about 15% improvement. Not
+worth bothering.
+
+
+Added the following lines to ~/.profile
+
+export PATH=.:$PATH
+export PS1="\w> "
+export TEXINPUTS=$TEXINPUTS:$(HOME)/tex/input
+export BIBINPUTS=$(HOME)/tex/bib
+
+The bash man-page seems to specify .bash_profile as the proper place to
+one-time settings. But when I looked at the standard SuSe .bashrc I found the
+following text
+
+# NOTE: It is recommended to make language settings in ~/.profile rather than
+# here, since multilingual X sessions would not work properly if LANG is over-
+# ridden in every subshell.
+
+However, it seems that $(HOME) was replaced by the empty string. $HOME works.
+Also, the prompt setting was overriden by the system-wide setting, so I moved
+the PS-stuff in .bashrc (Also I replaced \w by \W - only the last element of
+the full pwd is displayed.)
+
+Problem: I want to run some files before starting a WM but also I want to be
+able to choose a WM from xdm. Solution: Here is my .xinitrc
+
+xset fp+ $HOME/Fonts/ukrainian/
+xset fp+ $HOME/Fonts/cyrillic_w
+xset +fp $HOME/Fonts/cyrillic_k
+xmodmap $HOME/bin/jcuken-koi8u-xrus.xmm
+$HOME/bin/xrus
+
+if [ "$WINDOWMANAGER" == "fvwm2" ]
+then
+ exec fvwm2
+else
+ startkde
+fi
+
+1/1 Happy New Year 2004! :-)
+
+1/3
+xboard would not start: some fonts are missing. The following works
+xboard -clockFont "-adobe-courier-*-r-*" &
+
+Try to put the following into ~/.Xdefaults file but it doesn't work...
+Xboard*Font "-adobe-courier-*-r-*" Hm...
+
+18/5
+put "unalias l" into .bashrc (otherwise l is ls -l)
+
+25/5 installed jpeg tools from http://www.ijg.org/
+
+25/5 
+ Just realised that what I did to /etc/cron.tab stopped doing any cron jobs!
+
+Dirt solution (to prevent running update_db 15 min after laptop is switched on):
+ i) copied /usr/lib/cron/run-crons to /usr/lib/cron/run-crons-no-daily
+ ii) removed daily there
+ iii) added the following lines to /etc/cron:
+-*/15 * * * *   root  test -x /usr/lib/cron/run-crons-no-daily && /usr/lib/cron/run-crons-no-daily >/dev/null 2>&1
+15 4 * * *   root  test -x /usr/lib/cron/run-crons && /usr/lib/cron/run-crons >/dev/null 2>&1
+
+2/7
+ Finally, I found a way to configure the touchpad tapping! I used the
+synaptics driver (web-page http://w1.894.telia.com/~u89404340/touchpad/)
+
+Installed version 0.13.3. I added to XF86Config
+
+Section "InputDevice"
+  Identifier    "Synaptics Mouse"
+  Driver        "synaptics"
+  Option        "Device"        "/dev/psaux"
+  Option        "Protocol"      "auto-dev"
+  Option        "LeftEdge"      "1700"
+  Option        "RightEdge"     "5750"
+  Option        "TopEdge"       "1700"
+  Option        "BottomEdge"    "4200"
+  Option        "FingerLow"     "25"
+  Option        "FingerHigh"    "30"
+  Option        "MaxTapTime"    "0"
+  Option        "MaxTapMove"    "220"
+  Option        "VertScrollDelta" "100"
+  Option        "MinSpeed"      "0.06"
+  Option        "MaxSpeed"      "0.12"
+  Option        "AccelFactor" "0.0010"
+  Option        "SHMConfig"     "off"
+#  Option       "Repeater"      "/dev/ps2mouse"
+EndSection
+
+The option MaxTapTime=0 disables tapping. Also in Section
+"ServerLayout" I made the following changes:
+
+  InputDevice  "Synaptics Mouse" "CorePointer"
+#  InputDevice  "Mouse[1]" "CorePointer"
+
+Started X from a virtual console with 
+
+startx -- :1
+
+All works as desired :-)
+
+My changes deviating from the default: 
+  Option        "SHMConfig"     "off"
+(on allows changing parameters on fly but may be not very secure, according
+to the INSTALL file in the distribution).
+
+  Option        "RightEdge"     "5800"
+ (ajusted the right border between mouse movement and scrolling to suit my
+touchpad better)
+
+I also noticed that the package has the following program 
+(another possible solution to tapping):
+
+syndaemon  - a program that monitors keyboard activity and
+disables the touchpad when the keyboard is being used.
+
+6/7
+Added the following to /etc/init.d/boot.local 
+
+#OP adjusting clock drift (parameters obtained by running adjtimex -c)
+/usr/sbin/adjtimex --tick 1100  --freq 0
+
+Explanations: "adjtimex -c" recommends 1124 but unfortunately 1100 is 
+the highest. Still something is very fishy: with -tick 1100, the system
+runs too fast in comparison with my watch (+30sec in 5 min). But, adjtimex -c
+returns the same offset even if I run xntpd. Hm?... 
+
+Well, I'll just experiment and by error and trial adjust the clock
+
+
+Here is the /etc/ntp.conf file (created by yast):
+
+server 127.127.1.0
+fudge 127.127.1.0 stratum 10
+server 217.153.69.35
+driftfile /var/lib/ntp/drift/ntp.drift
+logfile /var/log/ntp
+
+I decided to experiment using the following config:
+server pool.ntp.org                                                            
+server pool.ntp.org
+server pool.ntp.org 
+                                                      
+server 127.127.1.0 
+fudge 127.127.1.0 stratum 10
+driftfile /var/lib/ntp/drift/ntp.drift
+logfile /var/log/ntp
+
+11/7
+In /etc/modules.conf, in the line
+options snd-ali5451 snd_enable=1 snd_index=0 snd_pcm_channels=32 snd_spdif=0
+removed the last option which just causes a warning message during startup
+
+
+13/8
+Got a wireless card from Florin. It got autodetected.
+
+According to a web-site I changed the following via yast2: Wireless
+options (here is how they appear in
+/etc/sysconfig/network/ifcfg-wlan-pcmci
+
+WIRELESS_ESSID='CMU'
+WIRELESS_KEY=''
+WIRELESS_MODE='Managed'
+
+Unfortunately, the default gateway did not appear. So Florin add it
+manually:
+
+# route add default gw 128.237.224.1
+
+This changed the file /etc/sysconfig/network/routes to one-line
+default 128.237.224.1 - - 
+
+It seems I have to type  route add default gw 128.237.224.1 
+after start-up :-((
+
+18/8 Florin has figured out the reason: the interface eth0 was a kind
+of primary and was responsible for gateway. Therefore, in the file
+/etc/sysconfig/network/ifcfg-eth0 he replaced 
+ STARTMODE='onboot' by STARTMODE=''
+
+The result is that eth0 is activated now. If later, I want to use it,
+I have to change it back.
+
+Later in my office I discovered that the network/gateway comes up but
+nameservers do not property configure. So, in yast2 I just entered the
+manual configuration: name servers 128.2.1.11 and 128.2.1.10 (plus
+domain search cmu.edu and math.cmu.edu)
+
+
+
+*********************** The fun(?) continues **************************
+
+8/28/2005 I have bought new notebook (Compaq Presario V2312US). 
+Installed Suse 9.3. Many things still needs to be fixed.
+
+8/28 To switch off tap=click behavior of the touchpad, added the line
+  Option "MaxTapTime=0"
+into section with Driver "synaptics". For more info, see
+web.telia.com/~u89404340/touchpad/
+
+
+8/29 soundcard did not work at first but after the first online update, it got 
+properly detected and configured
+
+8/30
+ To change the login manager:
+ /etc/rc.d/xdm runs /etc/sysconfig/displaymanager which in turns sets us
+variable $DISPLAYMANAGER to "gdm" or "kdm".
+
+8/31
+ After the fglrx driver from ita was installed, synaptics stopped responding 
+to Option "MaxTapTime=0". Still do not know why. Semigood solutions: upgraded
+synaptics to the current version 0.14 which comes with synclient. Then in
+gnome-control-center -> sessions -> startup programs I entered
+ synclient MaxTapTime=0
+
+
+
+
