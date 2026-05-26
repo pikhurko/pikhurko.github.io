@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="Pihurko, Pikhurko, combinatorics, mathematics, Warwick">
+  <title>Oleg Pikhurko: Main Homepage</title>
+  <style>
+    :root {
+      --fg: #1a1a1a;
+      --muted: #555;
+      --accent: #8a1538;
+      --accent-soft: #f4eaee;
+      --border: #e5e5e5;
+      --bg: #ffffff;
+      --max-width: 1040px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--fg);
+      background: var(--bg);
+    }
+
+    .wrap {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover, a:focus { text-decoration: underline; }
+
+    h1, h2, h3 { line-height: 1.2; }
+    h2 {
+      font-size: 1.4rem;
+      margin: 2.25rem 0 1rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid var(--border);
+    }
+    h3 { font-size: 1.05rem; margin: 0 0 0.4rem; }
+
+    /* Header */
+    .header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.75rem;
+      align-items: center;
+      padding: 0.5rem 0 1.5rem;
+    }
+    .header h1 {
+      font-size: clamp(1.75rem, 4vw, 2.4rem);
+      margin: 0 0 0.75rem;
+    }
+    .affiliation {
+      color: var(--muted);
+      margin: 0 0 0.5rem;
+      line-height: 1.5;
+    }
+    .affiliation a { color: var(--accent); }
+    .contact {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .contact strong { color: var(--fg); }
+    .portrait img {
+      display: block;
+      max-width: 200px;
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    /* Highlight section */
+    .highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 0.5rem 0 1.25rem;
+    }
+    .highlight {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0.55rem 1rem;
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      color: inherit;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .highlight:hover, .highlight:focus {
+      text-decoration: none;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+    }
+    .highlight .title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    /* Generic list cleanup */
+    ul { padding-left: 1.25rem; margin: 0.5rem 0; }
+    li { margin: 0.2rem 0; }
+
+    .group {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      column-gap: 1rem;
+      row-gap: 0.4rem;
+      margin: 0.5rem 0 1rem;
+    }
+    .group dt { font-weight: 600; }
+    .group dd { margin: 0; color: var(--muted); }
+
+    .teaching-block { margin: 0.75rem 0 1rem; }
+    .teaching-block h3 { color: var(--fg); }
+    .courses {
+      margin: 0.25rem 0 0;
+      padding-left: 1rem;
+      color: var(--muted);
+    }
+    .courses li { margin: 0.1rem 0; }
+
+    /* Personal cards (existing images) */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .card {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: inherit;
+    }
+    .card:hover, .card:focus {
+      text-decoration: none;
+      background: #fafafa;
+    }
+    .card img {
+      display: block;
+      max-height: 76px;
+      width: auto;
+      flex: 0 0 auto;
+      border-radius: 3px;
+    }
+    .card .card-title {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .personal-links {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+    }
+    .personal-links li { margin: 0.4rem 0; }
+
+    /* Footer-ish list spacing */
+    .support-list { padding: 0; list-style: none; margin: 0.25rem 0; }
+    .support-list li {
+      padding: 0.4rem 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .support-list li:last-child { border-bottom: 0; }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      .header {
+        grid-template-columns: 1fr;
+        text-align: left;
+      }
+      .portrait { order: -1; }
+      .portrait img { max-width: 160px; }
+      .highlights { grid-template-columns: 1fr; }
+      .group { grid-template-columns: 1fr; row-gap: 0.1rem; }
+      .group dd { margin-bottom: 0.4rem; }
+      body { font-size: 16px; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --fg: #ececec;
+        --muted: #b3b3b3;
+        --bg: #121212;
+        --border: #2a2a2a;
+        --accent: #ff6b8e;
+        --accent-soft: #2a1820;
+      }
+      .card:hover, .card:focus { background: #1c1c1c; }
+      .highlight .title { color: var(--fg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="header">
+      <div>
+        <h1>Oleg Pikhurko</h1>
+        <p class="affiliation">
+          <a href="http://www2.warwick.ac.uk/fac/sci/maths/">Mathematics Institute</a>
+          and <a href="http://www2.warwick.ac.uk/fac/cross_fac/dimap/">DIMAP</a><br>
+          University of Warwick, Coventry, CV4 7AL
+        </p>
+        <p class="contact">
+          <strong>Phone:</strong> +44-24-7657-3838<br>
+          <strong>Email:</strong>
+          <span id="email1115003717">&#x4f;&#x20;&#x64;&#x6f;&#116;&#32;&#x50;&#x69;&#x6b;&#x68;&#x75;&#114;&#x6b;&#111;&#32;&#97;&#116;&#x20;&#x77;&#x61;&#114;&#x77;&#105;&#x63;&#x6b;&#x20;&#100;&#x6f;&#x74;&#x20;&#x61;&#99;&#x20;&#x64;&#x6f;&#x74;&#x20;&#117;&#107;</span>
+        </p>
+      </div>
+      <div class="portrait">
+        <img alt="Photo by Matthew Wendzina" src="MW.jpg">
+      </div>
+    </header>
+
+    <section aria-label="Featured links" class="highlights">
+      <a class="highlight" href="Papers.html">
+        <span class="title">Publications</span>
+      </a>
+      <a class="highlight" href="https://warwick.ac.uk/fac/sci/maths/research/grants/mc">
+        <span class="title">Research group &ldquo;Finite and Descriptive Combinatorics&rdquo;</span>
+      </a>
+    </section>
+
+    <section>
+      <h2>Academic Information</h2>
+      <h3>Completed PhD students</h3>
+      <ul>
+        <li>Teresa Sousa (2006)</li>
+        <li>David Offner (2009)</li>
+        <li>Zelealem Yilma (2011)</li>
+        <li>Matthew Fitch (2019)</li>
+        <li>Matteo Mazzamurro (2023, co-advised with Weisi Guo)</li>
+        <li>Irene Gil Fern&aacute;ndez (2025, co-advised with Hong Liu)</li>
+        <li>Zhuo Wu (2025, co-advised with Hong Liu)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Teaching</h2>
+
+      <div class="teaching-block">
+        <h3>University of Warwick</h3>
+        <ul class="courses">
+          <li>MA225 &ldquo;Differentiation&rdquo;</li>
+          <li><a href="https://warwick.ac.uk/fac/sci/maths/currentstudents/modules/ma252">MA252 &ldquo;Combinatorial Optimisation&rdquo;</a></li>
+          <li>MA359 &ldquo;Measure Theory&rdquo;</li>
+          <li>MA9M2 &ldquo;Topics in Combinatorics&rdquo;</li>
+          <li>IMC Problem-Solving Seminar</li>
+          <li>TCC course &ldquo;Graph Limits&rdquo;</li>
+          <li>TCC course &ldquo;Descriptive Combinatorics&rdquo;</li>
+        </ul>
+      </div>
+
+      <div class="teaching-block">
+        <h3>Carnegie Mellon University</h3>
+        <ul class="courses">
+          <li>21-241 &ldquo;Matrix Algebra&rdquo;</li>
+          <li>21-228 &ldquo;Discrete Mathematics&rdquo;</li>
+          <li>21-295 &ldquo;Putnam Seminar&rdquo;</li>
+          <li>21-301 &ldquo;Combinatorics&rdquo;</li>
+          <li>21-484 &ldquo;Graph Theory&rdquo;</li>
+          <li>21-499 &ldquo;Undergraduate Research Topics in Discrete Mathematics&rdquo;</li>
+          <li>21-601 &ldquo;Algebra&rdquo;</li>
+          <li>21-701 &ldquo;Discrete Mathematics&rdquo;</li>
+          <li>21-801 &ldquo;Algebraic Methods in Combinatorics&rdquo;</li>
+          <li>21-801 &ldquo;The Probabilistic Method&rdquo;</li>
+          <li>21-801 &ldquo;Extremal Combinatorics with Applications in Computer Science&rdquo;</li>
+          <li>21-801 &ldquo;Ramsey Theory&rdquo;</li>
+        </ul>
+      </div>
+
+      <div class="teaching-block">
+        <h3>Cambridge University</h3>
+        <p style="margin:0.2rem 0; color:var(--muted)">
+          Supervising: &ldquo;Combinatorics&rdquo;, &ldquo;Graph Theory&rdquo;, &ldquo;Probability Theory&rdquo;, &ldquo;Numbers and Sets&rdquo;.<br>
+          Lecturing: &ldquo;Algebraic Methods in Combinatorics&rdquo; (graduate course). Lecture notes can be downloaded
+          <a href="AlgMet.pdf">here</a> or from
+          <a href="https://www.ams.org/open-math-notes/omn-view-listing?listingId=111432">Open Math Notes</a>.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Personal</h2>
+
+      <h3>Supporting Ukraine</h3>
+      <ul class="support-list">
+        <li><a href="https://ukrainianinstitute.org.uk/russias-war-against-ukraine-what-can-you-do-to-support-ukraine-ukrainians/">Ukrainian Institute London &mdash; how you can support Ukraine and Ukrainians</a></li>
+        <li><a href="https://terrytao.wordpress.com/2022/03/02/resources-for-displaced-mathematicians">Resources for displaced mathematicians, by Terence Tao</a></li>
+        <li><a href="https://www.newton.ac.uk/events/rebuild-ukraine/">INI Rebuild Ukraine Programme (for mathematicians)</a></li>
+      </ul>
+
+      <div class="cards">
+        <a class="card" href="http://www.cs.cmu.edu/puzzle/puzzle22.html">
+          <img alt="Toad" src="smtoad.gif">
+          <span class="card-title">Puzzle TOAD</span>
+        </a>
+        <a class="card" href="hedgehog/index.html">
+          <img alt="Hedgehog" src="izhak3.jpg">
+          <span class="card-title">Hedgehog Fund</span>
+        </a>
+        <a class="card" href="Gallery/ELN/index.html">
+          <img alt="Epsilons" src="epsilons4.jpg">
+          <span class="card-title">Erd&ouml;s Lap Number</span>
+        </a>
+      </div>
+
+      <ul class="personal-links">
+        <li><a href="creation/index.html">Poems, essays, translations, etc.</a>
+          (see also <a href="http://zhurnal.lib.ru/p/phurko_o/">my page</a> at journal &ldquo;Samizdat&rdquo;)
+        </li>
+        <li><a href="art/index.html">Paintings, drawings, etc.</a></li>
+      </ul>
+    </section>
+
+  </div>
+</body>
+</html>
